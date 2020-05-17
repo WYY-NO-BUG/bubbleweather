@@ -1,4 +1,4 @@
-package com.bubbleweahter.android.db;
+package com.bubbleweather.android.db;
 
 import org.litepal.crud.LitePalSupport;
 

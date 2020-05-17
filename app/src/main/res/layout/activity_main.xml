@@ -6,8 +6,9 @@
 
     <fragment
         android:id="@+id/choose_area_fragment"
-        android:name="com.bubbleweahter.android.ChooseAreaFragment"
+        android:name="com.bubbleweather.android.ChooseAreaFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </FrameLayout>
 

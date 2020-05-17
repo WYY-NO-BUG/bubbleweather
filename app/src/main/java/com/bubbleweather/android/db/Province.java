@@ -1,10 +1,10 @@
-package com.bubbleweahter.android.db;
+package com.bubbleweather.android.db;
 
 import org.litepal.crud.LitePalSupport;
 
 public class Province extends LitePalSupport {
     private int id;
-    private String privinceName;//省名
+    private String provinceName;//省名
     private int provinceCode;//省id
 
     public int getId() {
@@ -16,11 +16,11 @@ public class Province extends LitePalSupport {
     }
 
     public String getPrivinceName() {
-        return privinceName;
+        return provinceName;
     }
 
     public void setPrivinceName(String privinceName) {
-        this.privinceName = privinceName;
+        this.provinceName = privinceName;
     }
 
     public int getProvinceCode() {

@@ -1,4 +1,4 @@
-package com.bubbleweahter.android.util;
+package com.bubbleweather.android.util;
 
 /*
  * 提供一个工具类
@@ -8,9 +8,11 @@ package com.bubbleweahter.android.util;
 
 import android.text.TextUtils;
 
-import com.bubbleweahter.android.db.City;
-import com.bubbleweahter.android.db.County;
-import com.bubbleweahter.android.db.Province;
+import com.bubbleweather.android.db.City;
+import com.bubbleweather.android.db.County;
+import com.bubbleweather.android.db.Province;
+import com.bubbleweather.android.gson.Weather;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +21,11 @@ import org.json.JSONObject;
 public class Utility {
    public static boolean handleProvinceResponse(String response) {
        if (!TextUtils.isEmpty(response)) {
-           JSONArray allPtovince = null;
+           JSONArray allPtovinces = null;
            try {
-               allPtovince = new JSONArray(response);
-               for (int i = 0; i < allPtovince.length(); i++) {
-                   JSONObject provinceObject = allPtovince.getJSONObject(i);
+               allPtovinces = new JSONArray(response);
+               for (int i = 0; i < allPtovinces.length(); i++) {
+                   JSONObject provinceObject = allPtovinces.getJSONObject(i);
                    Province province = new Province();
                    province.setPrivinceName(provinceObject.getString("name"));
                    province.setProvinceCode(provinceObject.getInt("id"));
@@ -68,7 +70,7 @@ public class Utility {
                     County county = new County();
                     county.setCountyName(countyObject.getString("name"));
                     county.setWeatherId(countyObject.getString("weather_id"));
-                    county.getCityId(cityId);
+                    county.setCityId(cityId);
                     county.save();
                 }
                 return true;
@@ -78,5 +80,20 @@ public class Utility {
 
         }
         return false;
+    }
+
+    //将返回的JSON数据解析称Weather实体类
+    //该方法通过JSONObject和JSONArray将天气数据中的主体内容解析出来
+    //之前已经按照数据格式定义国对应的GSON实体类，因此需要通过调用fromJ送（）方法，直接将JSON数据转换城Weather对象。
+    public static Weather handleWeatherResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

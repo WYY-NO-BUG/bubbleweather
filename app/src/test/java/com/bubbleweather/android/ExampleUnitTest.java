@@ -1,4 +1,4 @@
-package com.bubbleweahter.android;
+package com.bubbleweather.android;
 
 import org.junit.Test;
 
