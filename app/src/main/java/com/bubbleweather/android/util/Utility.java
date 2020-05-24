@@ -84,16 +84,32 @@ public class Utility {
 
     //将返回的JSON数据解析称Weather实体类
     //该方法通过JSONObject和JSONArray将天气数据中的主体内容解析出来
-    //之前已经按照数据格式定义国对应的GSON实体类，因此需要通过调用fromJ送（）方法，直接将JSON数据转换城Weather对象。
+    //之前已经按照数据格式定义国对应的GSON实体类，因此需要通过调用fromJson（）方法，直接将JSON数据转换城Weather对象。
     public static Weather handleWeatherResponse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
             String weatherContent = jsonArray.getJSONObject(0).toString();
-            return new Gson().fromJson(weatherContent,Weather.class);
+             return  new Gson().fromJson(weatherContent,Weather.class);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    public static cityId handleCityIdResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
+            return new Gson().fromJson(jsonArray.getJSONObject(0).toString(), cityId.class);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 }

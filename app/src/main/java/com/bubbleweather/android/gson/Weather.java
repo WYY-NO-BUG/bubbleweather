@@ -8,9 +8,15 @@ import java.util.List;
 public class Weather {
     public String status;
     public Basic basic;
-    public AQI aqi;
     public Now now;
-    public Suggestion suggestion;
+    public Updata update;
+
+    @SerializedName("hourly")
+    public List<hourly> hourlies;
+
+    @SerializedName("lifestyle")
+    public List<Lifestyle> lifestyles;
+
     @SerializedName("daily_forecast")
     public List<Forecast> forecastList;
 }

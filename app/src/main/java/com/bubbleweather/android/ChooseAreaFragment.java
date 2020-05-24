@@ -121,6 +121,7 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
+        //开始加载省数据
         queryProvinces();
     }
 
@@ -239,6 +240,7 @@ public class ChooseAreaFragment extends Fragment {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage("正在加载...");
             progressDialog.setCanceledOnTouchOutside(false);
+
         }
         progressDialog.show();
     }
