@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <ImageView
-        android:id="@+id/bing_pic_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
-
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
         <!--下拉刷新-->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -40,8 +36,6 @@
 
                     <include layout="@layout/forecast" />
 
-
-
                     <include layout="@layout/suggestion" />
                 </LinearLayout>
 
@@ -53,7 +47,8 @@
             android:name="com.bubbleweather.android.ChooseAreaFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start" />
+            android:layout_gravity="start"
+            tools:layout="@layout/choose_area" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

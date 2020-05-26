@@ -45,6 +45,7 @@ public class ChooseAreaFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private List<String> dataList = new ArrayList<>();
+    private Button manage;
 
     //省列表
     private List<Province> provinceList;
@@ -71,6 +72,7 @@ public class ChooseAreaFragment extends Fragment {
         View view = inflater.inflate(R.layout.choose_area, container, false);
         titleText = (TextView) view.findViewById(R.id.title_text);
         backButton = (Button) view.findViewById(R.id.back_button);
+        manage = (Button) view.findViewById(R.id.manage);
         listView = (ListView) view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
@@ -80,22 +82,22 @@ public class ChooseAreaFragment extends Fragment {
     }
 
     @Override
-    public	void	onActivityCreated(Bundle	savedInstanceState)	{
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        listView.setOnItemClickListener(new	AdapterView.OnItemClickListener()	{
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public	void onItemClick(AdapterView<?>	parent,	View	view,	int	position, long	id)	{
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //在onItemClick（）方法中加入一个if判断，如果当前级别是LEVEL_COUNTY
                 //启动MainActivity
-                if	(currentLevel == LEVEL_PROVINCE)	{
+                if (currentLevel == LEVEL_PROVINCE) {
                     selectedProvince = provinceList.get(position);
                     queryCities();
-                }else if (currentLevel	==	LEVEL_CITY)	{
+                } else if (currentLevel == LEVEL_CITY) {
                     selectedCity = cityList.get(position);
                     queryCounties();
-                } else if (currentLevel	==	LEVEL_COUNTY)	{
+                } else if (currentLevel == LEVEL_COUNTY) {
                     //如果是LEVEL_COUNTY，就启动WeatherActivity，并把当前选中县的天气id传递过去
-                    String	weatherId = countyList.get(position).getWeatherId();
+                    String weatherId = countyList.get(position).getWeatherId();
                     if (getActivity() instanceof MainActivity) {
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
                         intent.putExtra("weather_id", weatherId);
@@ -121,6 +123,16 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
+        manage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CityManage.class);
+                startActivity(intent);
+                getActivity().finish();
+
+            }
+        });
+
         //开始加载省数据
         queryProvinces();
     }
@@ -181,9 +193,9 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_COUNTY;
         } else {
-            int	provinceCode = selectedProvince.getProvinceCode();
-            int	cityCode = selectedCity.getCityCode();
-            String address = "http://guolin.tech/api/china/" + provinceCode +"/"+ cityCode;
+            int provinceCode = selectedProvince.getProvinceCode();
+            int cityCode = selectedCity.getCityCode();
+            String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
             queryFromServer(address, "county");
         }
     }
@@ -219,6 +231,7 @@ public class ChooseAreaFragment extends Fragment {
                     });
                 }
             }
+
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 //通过runOnUiThread（）方法返回到主线程处理逻辑

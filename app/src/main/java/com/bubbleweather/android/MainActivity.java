@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                     String weatherId = basic.cityID;
                     Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
                     intent.putExtra("weather_id", weatherId);
+                    intent.putExtra("mlocation",weatherId);
                     startActivity(intent);
                     finish();
                 }

@@ -42,7 +42,7 @@
             android:gravity="right"
             android:textColor="#fff"
             android:textSize="15sp"
-            android:text="当日最高"/>
+            android:text="最高"/>
         <TextView
             android:id="@+id/info_text3"
             android:layout_width="0dp"
@@ -52,7 +52,7 @@
             android:gravity="right"
             android:textColor="#fff"
             android:textSize="15sp"
-            android:text="当日最低" />
+            android:text="最低" />
 
     </LinearLayout>
 

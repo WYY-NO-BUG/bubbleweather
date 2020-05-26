@@ -33,7 +33,7 @@ public class AutoUpdateService extends Service {
         updateWeather();
         updateBingPic();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 8 * 60 * 60 * 1000;    //	这是8小时的毫秒数
+        int anHour = 1 * 60 * 60 * 1000;    //	这是8小时的毫秒数
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AutoUpdateService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
@@ -50,8 +50,8 @@ public class AutoUpdateService extends Service {
             //	有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
             String weatherId = weather.basic.weatherId;
-            String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId +
-                                "&key=bc0418b57b2d4918819d3974ac1285d9";
+            String weatherUrl = "https://free-api.heweather.net/s6/weather/?location=" +
+            weatherId + "&key=7aa2b75d9e5e406f9fc0ae5c829e53b0";
             HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
